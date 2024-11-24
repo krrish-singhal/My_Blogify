@@ -1,0 +1,38 @@
+
+body {
+    display: flex;
+    justify-content: center;/*horizontally flexed */
+    align-items: center;/*vertically flexed */
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+.card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;/*the content will spill outside of the container, possibly disrupting the layout*/
+    width: 300px;
+    text-align: center;
+}
+.card .qr-code {
+    background-color: #2c7dfa;
+    padding: 20px;
+}
+.card .qr-code img {
+    width: 100%;
+    height: auto;
+}
+.card .content {
+    padding: 20px;
+}
+.card .content h1 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    color: #333333;
+}
+.card .content p {
+    font-size: 14px;
+    color: #666666;
+    margin: 0;
+}
