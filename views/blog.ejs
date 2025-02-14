@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head') %>
+  <title><%= blog.title %> - Blogify</title>
+  <style>
+    body {
+      overflow-x: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      padding-top: 60px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 15px;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .blog-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .blog-content {
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+      margin-bottom: 30px;
+    }
+    .author-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .author-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    .comment-section {
+      margin-top: 40px;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .comment-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .btn-primary {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+    .btn-danger {
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+    .comment {
+      background: #fff;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <%- include('./partials/nav') %>
+  <div class="container">
+    <h1 class="mb-3"><%= blog.title %></h1>
+    <img src="<%= blog.coverImageURL %>" class="blog-image" alt="Blog Image">
+    <div class="blog-content"><%= blog.body %></div>
+    
+    <div class="author-info">
+      <img src="<%= blog.createdBy && blog.createdBy.profileImageURL ? blog.createdBy.profileImageURL : '/default.png' %>" class="author-img" alt="Author Image">
+      <span>By <%= blog.createdBy ? blog.createdBy.fullName : 'Unknown Author' %></span>
+    </div>
+
+    <% if (user && blog.createdBy && blog.createdBy._id.toString() === user._id.toString()) { %>
+    <form action="/blog/<%= blog._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?');">
+      <button type="submit" class="btn btn-danger">Delete Blog</button>
+    </form>
+    <% } %>
+
+    <div class="comment-section">
+      <h2>Comments (<%= comments.length %>)</h2>
+      <% if (user) { %>
+      <form action="/blog/comment/<%= blog._id %>" method="post" class="comment-form">
+        <input type="text" name="content" placeholder="Enter your comment" required>
+        <button class="btn btn-primary" type="submit">Add Comment</button>
+      </form>
+      <% } %>
+      
+    </div>
+  </div>
+  <%- include('./partials/script.ejs') %>
+</body>
+</html>
