@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%- include('./partials/head') %>
-    <title>Signin - Blogify</title>
+    <title>Reset Password - Blogify</title>
     <style>
         body {
             background-color: #f8f9fa;
@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
         }
-        .signin-container {
+        .reset-password-container {
             background-color: #ffffff;
             border-radius: 10px;
             padding: 30px;
@@ -19,38 +19,31 @@
             width: 100%;
             max-width: 400px;
         }
-        .signin-container h2 {
+        .reset-password-container h2 {
             text-align: center;
             margin-bottom: 20px;
-        }
-        .forgot-password {
-            text-align: right;
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <%- include('./partials/nav') %>
 
-    <div class="signin-container">
-        <h2>Sign In</h2>
+    <div class="reset-password-container">
+        <h2>Reset Password</h2>
         <% if (locals.error) { %>
             <div class="alert alert-danger"><%= error %></div>
         <% } %>
-        <form action="/user/signin" method="post">
+        <form action="/user/reset/<%= token %>" method="post">
             <div class="mb-3">
-                <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">New Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+            <div class="mb-3">
+                <label for="confirm" class="form-label">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirm" name="confirm" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Reset Password</button>
         </form>
-        <div class="forgot-password">
-            <a href="/user/forgot-password">Forgot Password?</a>
-        </div>
     </div>
 
     <%- include('./partials/script.ejs') %>

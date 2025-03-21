@@ -1,24 +1,24 @@
-const jwt = require("jsonwebtoken");
-
-const secretKey = "$uperMan@123";
+const jwt = require("jsonwebtoken")
+const secretKey = "$uperMan@123"
 
 function checkForAuthenticationCookie(tokenName) {
   return (req, res, next) => {
-    const token = req.cookies[tokenName];
+    const token = req.cookies[tokenName]
     if (!token) {
-      req.user = null; 
-      return next();
+      req.user = null
+      return next()
     }
 
     try {
-      const decoded = jwt.verify(token, secretKey);  
-      req.user = decoded; 
+      const decoded = jwt.verify(token, secretKey)
+      req.user = decoded
     } catch (error) {
-      req.user = null; 
+      req.user = null
     }
 
-    next();  
-  };
+    next()
+  }
 }
 
-module.exports = { checkForAuthenticationCookie };
+module.exports = { checkForAuthenticationCookie }
+
